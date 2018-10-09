@@ -65,6 +65,11 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+#   dimension: profit_margin {
+#     type: number
+#     sql: ${sale_price} - ${inventory_items.cost} ;;
+#   }
+
   dimension_group: shipped {
     type: time
     timeframes: [
@@ -93,6 +98,86 @@ view: order_items {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: average_sale_price {
+    type: average
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: total_sale_price {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: cumulative_total_sales {
+    type: running_total
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
+
+  measure: total_gross_revenue {
+    type: sum
+    sql: ${sale_price} ;;
+    filters: {
+      field: order_items.status
+      value: "Complete"
+    }
+    value_format_name: usd
+  }
+
+  measure: total_cost {
+    type: sum
+    sql: ${inventory_items.cost} ;;
+    value_format_name: usd
+  }
+
+  measure: average_cost {
+    type: average
+    sql: ${inventory_items.cost} ;;
+    value_format_name: usd
+  }
+
+  measure: total_gross_margin {
+    type: sum
+    sql: ${sale_price} - ${inventory_items.cost} ;;
+    filters: {
+      field: order_items.status
+      value: "Complete"
+    }
+    value_format_name: usd
+  }
+
+  measure: average_gross_margin {
+    type: average
+    sql: ${sale_price} - ${inventory_items.cost} ;;
+    filters: {
+      field: order_items.status
+      value: "Complete"
+    }
+    value_format_name: usd
+  }
+
+  measure: gross_margin_percent {
+    type: number
+    sql: (${total_gross_margin} / ${total_gross_revenue})*100 ;;
+    value_format_name: percent_1
+  }
+
+  measure: returned_items_count {
+    type: count
+      filters: {
+        field: status
+        value: "Returned"
+      }
+  }
+
+  measure: returned_items_rate {
+    type: number
+    sql: (${returned_items_count}/${count})*100 ;;
+    value_format_name: percent_1
   }
 
   # ----- Sets of fields for drilling ------
