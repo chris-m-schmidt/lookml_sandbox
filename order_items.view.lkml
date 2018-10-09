@@ -122,7 +122,7 @@ view: order_items {
     type: sum
     sql: ${sale_price} ;;
     filters: {
-      field: order_items.status
+      field: status
       value: "Complete"
     }
     value_format_name: usd
@@ -144,7 +144,7 @@ view: order_items {
     type: sum
     sql: ${sale_price} - ${inventory_items.cost} ;;
     filters: {
-      field: order_items.status
+      field: status
       value: "Complete"
     }
     value_format_name: usd
@@ -154,7 +154,7 @@ view: order_items {
     type: average
     sql: ${sale_price} - ${inventory_items.cost} ;;
     filters: {
-      field: order_items.status
+      field: status
       value: "Complete"
     }
     value_format_name: usd
@@ -168,16 +168,25 @@ view: order_items {
 
   measure: returned_items_count {
     type: count
-      filters: {
-        field: status
-        value: "Returned"
-      }
+    filters: {
+      field: status
+      value: "Returned"
+    }
   }
 
   measure: returned_items_rate {
     type: number
     sql: (${returned_items_count}/${count})*100 ;;
     value_format_name: percent_1
+  }
+
+  measure: customer_returning_items_count_1 {
+    type: count_distinct
+    sql: ${user_id} ;;
+    filters: {
+      field: status
+      value: "Returned"
+    }
   }
 
   # ----- Sets of fields for drilling ------

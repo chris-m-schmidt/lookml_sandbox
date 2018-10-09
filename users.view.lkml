@@ -86,4 +86,13 @@ view: users {
     type: count
     drill_fields: [id, first_name, last_name, events.count, order_items.count]
   }
+
+  measure: customer_returning_items_count {
+    type: count
+    filters: {
+      field: order_items.status
+      value: "Returned"
+    }
+  }
+
 }

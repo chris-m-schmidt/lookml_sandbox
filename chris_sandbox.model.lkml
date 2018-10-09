@@ -17,7 +17,9 @@ explore: company_list {}
 explore: distribution_centers {}
 
 explore: events {
+  fields: [ALL_FIELDS*, -users.customer_returning_items_count]
   join: users {
+#     fields: [users.id]
     type: left_outer
     sql_on: ${events.user_id} = ${users.id} ;;
     relationship: many_to_one
@@ -72,4 +74,6 @@ explore: products {
   }
 }
 
-explore: users {}
+explore: users {
+  fields: [ALL_FIELDS*, -users.customer_returning_items_count]
+}
