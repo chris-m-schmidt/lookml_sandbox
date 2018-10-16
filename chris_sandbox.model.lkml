@@ -7,7 +7,6 @@ include: "*.view"
 
 explore: order_items {
   view_name: order_items
-  view_label: "Order Items"
   extension: required
 
   join: inventory_items {
