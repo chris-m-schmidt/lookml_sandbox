@@ -10,35 +10,35 @@ datagroup: chris_sandbox_default_datagroup {
 
 persist_with: chris_sandbox_default_datagroup
 
-explore: bsandell {}
-
-explore: company_list {}
-
-explore: distribution_centers {}
-
-explore: events {
-  fields: [ALL_FIELDS*, -users.customer_returning_items_count]
-  join: users {
-#     fields: [users.id]
-    type: left_outer
-    sql_on: ${events.user_id} = ${users.id} ;;
-    relationship: many_to_one
-  }
-}
-
-explore: inventory_items {
-  join: products {
-    type: left_outer
-    sql_on: ${inventory_items.product_id} = ${products.id} ;;
-    relationship: many_to_one
-  }
-
-  join: distribution_centers {
-    type: left_outer
-    sql_on: ${products.distribution_center_id} = ${distribution_centers.id} ;;
-    relationship: many_to_one
-  }
-}
+# explore: bsandell {}
+#
+# explore: company_list {}
+#
+# explore: distribution_centers {}
+#
+# explore: events {
+#   fields: [ALL_FIELDS*, -users.customer_returning_items_count]
+#   join: users {
+# #     fields: [users.id]
+#     type: left_outer
+#     sql_on: ${events.user_id} = ${users.id} ;;
+#     relationship: many_to_one
+#   }
+# }
+#
+# explore: inventory_items {
+#   join: products {
+#     type: left_outer
+#     sql_on: ${inventory_items.product_id} = ${products.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: distribution_centers {
+#     type: left_outer
+#     sql_on: ${products.distribution_center_id} = ${distribution_centers.id} ;;
+#     relationship: many_to_one
+#   }
+# }
 
 explore: order_items {
   join: users {
@@ -52,28 +52,29 @@ explore: order_items {
     sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
     relationship: many_to_one
   }
-
-  join: products {
-    type: left_outer
-    sql_on: ${inventory_items.product_id} = ${products.id} ;;
-    relationship: many_to_one
-  }
-
-  join: distribution_centers {
-    type: left_outer
-    sql_on: ${products.distribution_center_id} = ${distribution_centers.id} ;;
-    relationship: many_to_one
-  }
 }
 
-explore: products {
-  join: distribution_centers {
-    type: left_outer
-    sql_on: ${products.distribution_center_id} = ${distribution_centers.id} ;;
-    relationship: many_to_one
-  }
-}
-
-explore: users {
-  fields: [ALL_FIELDS*, -users.customer_returning_items_count]
-}
+#   join: products {
+#     type: left_outer
+#     sql_on: ${inventory_items.product_id} = ${products.id} ;;
+#     relationship: many_to_one
+#   }
+#
+#   join: distribution_centers {
+#     type: left_outer
+#     sql_on: ${products.distribution_center_id} = ${distribution_centers.id} ;;
+#     relationship: many_to_one
+#   }
+# }
+#
+# explore: products {
+#   join: distribution_centers {
+#     type: left_outer
+#     sql_on: ${products.distribution_center_id} = ${distribution_centers.id} ;;
+#     relationship: many_to_one
+#   }
+# }
+#
+# explore: users {
+#   fields: [ALL_FIELDS*, -users.customer_returning_items_count]
+# }
