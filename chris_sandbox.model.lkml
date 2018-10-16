@@ -1,18 +1,7 @@
-# include all the views
 include: "*.view"
 include: "chris_sandbox.explore.lkml"
 
 # connection: "thelook_events_redshift"
-
-# # include all the views
-# # include: "*.view"
-
-# datagroup: chris_sandbox_default_datagroup {
-#   # sql_trigger: SELECT MAX(id) FROM etl_log;;
-#   max_cache_age: "1 hour"
-# }
-
-# persist_with: chris_sandbox_default_datagroup
 
 # explore: order_items {
 #   view_name: order_items
