@@ -1,6 +1,3 @@
-include: "*.view"
-# include: "chris_sandbox.explore.lkml"
-
 connection: "thelook_events_redshift"
 
 include: "*.view"
