@@ -1,5 +1,3 @@
-# Chris Sandbox Explore Lkml
-
 connection: "thelook_events_redshift"
 
 # include all the views
