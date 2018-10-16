@@ -1,7 +1,11 @@
+# include all the views
+include: "*.view"
+include: "chris_sandbox.explore.lkml"
+
 connection: "thelook_events_redshift"
 
 # include all the views
-include: "*.view"
+# include: "*.view"
 
 datagroup: chris_sandbox_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -10,42 +14,11 @@ datagroup: chris_sandbox_default_datagroup {
 
 persist_with: chris_sandbox_default_datagroup
 
-# explore: bsandell {}
-#
-# explore: company_list {}
-#
-# explore: distribution_centers {}
-#
-# explore: events {
-#   fields: [ALL_FIELDS*, -users.customer_returning_items_count]
-#   join: users {
-# #     fields: [users.id]
-#     type: left_outer
-#     sql_on: ${events.user_id} = ${users.id} ;;
-#     relationship: many_to_one
-#   }
-# }
-#
-# explore: inventory_items {
-#   join: products {
-#     type: left_outer
-#     sql_on: ${inventory_items.product_id} = ${products.id} ;;
-#     relationship: many_to_one
-#   }
-#
-#   join: distribution_centers {
-#     type: left_outer
-#     sql_on: ${products.distribution_center_id} = ${distribution_centers.id} ;;
-#     relationship: many_to_one
-#   }
-# }
-
 explore: order_items {
-  # join: users {
-  #   type: left_outer
-  #   sql_on: ${order_items.user_id} = ${users.id} ;;
-  #   relationship: many_to_one
-  # }
+  view_name: order_items
+  view_label: "Order Items"
+  extension: required
+
 
   join: inventory_items {
     type: left_outer
@@ -53,28 +26,3 @@ explore: order_items {
     relationship: many_to_one
   }
 }
-
-#   join: products {
-#     type: left_outer
-#     sql_on: ${inventory_items.product_id} = ${products.id} ;;
-#     relationship: many_to_one
-#   }
-#
-#   join: distribution_centers {
-#     type: left_outer
-#     sql_on: ${products.distribution_center_id} = ${distribution_centers.id} ;;
-#     relationship: many_to_one
-#   }
-# }
-#
-# explore: products {
-#   join: distribution_centers {
-#     type: left_outer
-#     sql_on: ${products.distribution_center_id} = ${distribution_centers.id} ;;
-#     relationship: many_to_one
-#   }
-# }
-#
-# explore: users {
-#   fields: [ALL_FIELDS*, -users.customer_returning_items_count]
-# }
