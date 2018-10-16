@@ -2,7 +2,7 @@ connection: "thelook_events_redshift"
 
 include: "*.view"
 
-explore: order_items {
+explore: order_items_explore {
   view_name: order_items
   extension: required
 
